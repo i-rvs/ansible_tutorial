@@ -1,0 +1,12 @@
+---
+- name: check if image available locally or not
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - docker_image_info:
+       name: "customimage"
+       source: local
+      register: source_local_output
+    - debug:
+       var: source_local_output

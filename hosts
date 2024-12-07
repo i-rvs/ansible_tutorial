@@ -1,0 +1,5 @@
+[master]
+localhost ansible_connection=ssh ansible_ssh_user=ravimaster ansible_ssh_passs='Ravi@1234'
+
+[worker]
+192.168.1.109 ansible_connection=ssh ansible_ssh_user=raviworker1 ansible_ssh_passs='Ravi@1234'
