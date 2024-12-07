@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+    - name: stop Apache
+      service:
+       name: httpd
+       state: stopped
+    - name: Start Apache
+      service:
+        name: httpd
+        enabled: true
