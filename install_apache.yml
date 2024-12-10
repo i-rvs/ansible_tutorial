@@ -2,16 +2,16 @@
 
 - hosts: all
   become: true
+  gather_facts: yes
   tasks:
-    - name: Install Apache
-      yum:
+    - name: Install HTTPD
+      dnf:
         name: httpd
-    - name: stop Apache
-      service:
-       name: httpd
-       state: stopped
-    - name: Start Apache
-      service:
-        name: httpd
-        state: started
+        state: latest
+      when: ansible_distribution in ["CentOS"]
 
+    - name: Install APACHE
+      apt:
+       name: apache2
+       state: latest
+      when: ansible_distribution in ["Ubuntu"]

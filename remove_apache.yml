@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Stop Apache
+      service:
+       name: httpd
+       state: stopped
+    - name: Uninstall/Remove Apache
+      service:
+        name: apache2
+        state: absent
+      when: ansible_distribution in ["Ubuntu"]
+    - name: Uninstall/Remove HTTPD
+      service:
+        name: httpd
+        enabled: false
+      when: ansible_distribution in ["CentOS"]
