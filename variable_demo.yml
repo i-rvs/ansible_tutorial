@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    http_port: 80
+    user: admin
+    path: /tmp/tomcat
+  tasks:
+    - name: Variables usage
+      debug:
+        msg: "Port is : {{ http_port }} Username is : {{ user }} Path is : {{ path }}"
+
+- hosts: centos, ubuntu
+  gather_facts: no
+  tasks:
+    - name: group Variables
+      debug:
+        msg: "Ubuntu packages variables: {{ apache_package }}, {{ ftp_package }}"
+
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - name: environment variables
+      debug:
+        msg: "ENV_Home is {{ lookup('env', 'HOME') }}"
+    - name:
+      debug:
+        msg: "ENV_Shell is {{ lookup('env','SHELL') }}"
+

@@ -1,6 +1,21 @@
 [master]
-localhost ansible_user=ravimaster apache_package=httpd ftp_package=vsftpd
+localhost ansible_user=ravimaster
 
 [workers]
-192.168.1.109 ansible_user=raviworker1 apache_package=httpd ftp_package=vsftpd
-192.168.1.110 ansible_user=ravi apache_package=apache2 ftp_package=vsftpd
+192.168.1.109 ansible_user=raviworker1
+192.168.1.110 ansible_user=ravi
+
+[centos]
+localhost ansible_user=ravimaster
+192.168.1.109 ansible_user=raviworker1
+
+[ubuntu]
+192.168.1.110 ansible_user=ravi
+
+[centos:vars]
+ftp_package=vsftpd
+apache_package=https
+
+[ubuntu:vars]
+ftp_package=vsftpd
+apache_package=apache2
