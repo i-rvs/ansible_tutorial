@@ -24,8 +24,15 @@
       package:
         name: unzip
 
-    - name: Unzip the terraform files
+    - name: Checking if Terraform service exists on localhost
       tags: unzip, terraform
+      stat:
+        path: /usr/local/bin/terraform
+      register: st
+
+    - name: Unzip the terrfrom zip file
+      tags: unzip, terraform
+      when: not st.stat.exists
       unarchive:
         src: https://releases.hashicorp.com/terraform/1.10.1/terraform_1.10.1_linux_386.zip
         dest: /usr/local/bin
