@@ -3,18 +3,36 @@
   become: true
   pre_tasks:
     - name: Install updates(CentOS)
-      tags: always
+      tags: alwayss
       dnf:
         update_cache: yes
         update_only: yes
       when: ansible_distribution == "CentOS"
 
     - name: Install updates (Ubuntu)
-      tags: always
+      tags: alwayss
       apt:
         update_cache: yes
         upgrade: dist
       when: ansible_distribution == "Ubuntu"
+
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Install Unzip
+      tags: unzip, terraform
+      package:
+        name: unzip
+
+    - name: Unzip the terraform files
+      tags: unzip, terraform
+      unarchive:
+        src: https://releases.hashicorp.com/terraform/1.10.1/terraform_1.10.1_linux_386.zip
+        dest: /usr/local/bin
+        remote_src: yes
+        mode: 0755
+        group: root
+        owner: root
 
 - hosts: workers
   become: true
@@ -39,6 +57,15 @@
        state: latest
        update_cache: yes
       when: ansible_distribution in ["Ubuntu"]
+
+    - name: Copy files -default html in worker node
+      tags: apache
+      copy:
+        src: ./files/defaults_site.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
 
 - hosts: master
   become: true
