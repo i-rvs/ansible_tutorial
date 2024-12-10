@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+  tasks:
+    - name: install Apache and FTP service
+      package:
+        name:
+          - "{{ apache_package }}"
+          - "{{ ftp_package }}"
+        state: latest
+        update_cache: yes

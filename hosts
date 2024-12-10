@@ -1,6 +1,6 @@
 [master]
-localhost ansible_connection=ssh ansible_ssh_user=ravimaster ansible_ssh_passs='Ravi@1234'
+localhost ansible_user=ravimaster apache_package=httpd ftp_package=vsftpd
 
-[worker]
-192.168.1.109 ansible_connection=ssh ansible_ssh_user=raviworker1 ansible_ssh_passs='Ravi@1234'
-192.168.1.110 ansible_connection=ssh ansible_ssh_user=ravi ansible_ssh_passs='Ravi@1234'
+[workers]
+192.168.1.109 ansible_user=raviworker1 apache_package=httpd ftp_package=vsftpd
+192.168.1.110 ansible_user=ravi apache_package=apache2 ftp_package=vsftpd
