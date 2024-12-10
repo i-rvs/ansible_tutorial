@@ -3,12 +3,14 @@
   become: true
   pre_tasks:
     - name: Install updates(CentOS)
+      tags: always
       dnf:
         update_cache: yes
         update_only: yes
       when: ansible_distribution == "CentOS"
 
     - name: Install updates (Ubuntu)
+      tags: always
       apt:
         update_cache: yes
         upgrade: dist
@@ -19,6 +21,7 @@
   gather_facts: yes
   tasks:
     - name: Install HTTPD & FTP in CentOS
+      tags: httpd, ftp
       dnf:
         name:
           - httpd
@@ -28,6 +31,7 @@
       when: ansible_distribution in ["CentOS"]
 
     - name: Install APACHE & FTP in Ubuntu
+      tags: apache, apache2
       apt:
        name:
          - apache2
@@ -40,6 +44,7 @@
   become: true
   tasks:
     - name: Install MYSQLDB server in Master Server
+      tags: mysql, mysqld
       dnf:
         name: mysql
         state: latest
