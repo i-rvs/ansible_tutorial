@@ -1,0 +1,37 @@
+---
+- name: Loops demo show
+  hosts: localhost
+  gather_facts: no
+  vars:
+    fruits:
+      - apples
+      - mangoes
+      - bananas
+    animals:
+      - tiger
+      - lion
+      - monkey
+      - elephant
+
+  tasks:
+    - name: loop over all softwares
+      debug:
+        msg: "these are loop content: {{ item }}"
+      loop:
+        - wget
+        - apache2
+        - telnet
+
+    - name: loop over furits with Vars
+      debug:
+        msg: "these are furits from Variables {{ item }}"
+      loop: "{{ fruits }}"
+
+    - name: loop control exampls
+      debug:
+        msg: "{{ index }} : {{ anim }}"
+      loop: "{{ animals }}"
+      loop_control:
+        index_var: index
+        loop_var: anim
+        label: "ANIMAL"
