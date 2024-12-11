@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Create a User - simone on all hosts
+      tags: always
+      user:
+        name: simone
+        groups: root
+
+    - name: Adding ssh key to simone
+      tags: always
+      copy:
+        src: ~/.ssh/id_ed25519.pub
+        dest: /home/simone/.ssh/id_ed25519.pub
+        owner: root
+        group: root
+
+    - name: Adding sudoers for simone
+      tags: always
+      copy:
+        src: ./files/sudoer_simone
+        dest: /etc/sudoers.d/
+        remote_src: yes
+        owner: root
+        group: root
+
